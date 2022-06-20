@@ -1,0 +1,158 @@
+// stylelint-disable unit-blacklist
+
+// # タイポグラフィ
+//
+// 10(base font size) / 16(Browser Default font size) = 0.625em * 100 = 62.5%
+$root-font-size: 62.5%;
+$base-font-size: 1.6rem; // 16pt base
+$base-line-height: 1.7;
+$indent-sub-list: 2em;
+
+// # 寸法
+//
+$breakpoint-xs: 576;
+$breakpoint-sm: 768;
+$breakpoint-md: 992;
+$breakpoint-lg: 1200;
+$page-viewport-width: $breakpoint-lg;
+$page-base-width: $breakpoint-md;
+$page-viewport-side-margin: 30px;
+$page-viewport-side-margin-xs: 20px;
+
+// xsのみ
+@custom-media --xs screen and (max-width: #{$breakpoint-xs * 1px});
+
+// smのみ
+@custom-media --sm screen and (min-width: #{$breakpoint-xs * 1px}) and (max-width: #{$breakpoint-sm * 1px - 1px});
+
+// mdのみ
+@custom-media --md screen and (min-width: #{$breakpoint-sm * 1px}) and (max-width: #{$breakpoint-md * 1px - 1px});
+
+// lgのみ
+@custom-media --lg screen and (min-width: #{$breakpoint-md * 1px}) and (max-width: #{$breakpoint-lg * 1px - 1px});
+
+// xlのみ
+@custom-media --xl screen and (min-width: #{$breakpoint-lg * 1px});
+
+// xs以下 = xsのみ
+@custom-media --xs-lte screen and (max-width: #{$breakpoint-xs * 1px - 1px});
+
+// sm以下
+@custom-media --sm-lte screen and (max-width: #{$breakpoint-sm * 1px - 1px});
+
+// md以下
+@custom-media --md-lte screen and (max-width: #{$breakpoint-md * 1px - 1px});
+
+// lg以下
+@custom-media --lg-lte screen and (max-width: #{$breakpoint-lg * 1px - 1px});
+
+// xs超え
+@custom-media --xs-gt screen and (min-width: #{$breakpoint-xs * 1px});
+
+// sm超え
+@custom-media --sm-gt screen and (min-width: #{$breakpoint-sm * 1px});
+
+// pcオンリ
+@custom-media --sm-pc screen and (min-width: #{$breakpoint-sm * 1px + 1});
+
+// md超え
+@custom-media --md-gt screen and (min-width: #{$breakpoint-md * 1px});
+
+// lg超え
+@custom-media --lg-gt screen and (min-width: #{$breakpoint-lg * 1px});
+
+// high resolution
+@custom-media --hr (min-resolution: 2dppx);
+
+// # 汎用マージン
+//
+$margin-narrow-xs: 5px;
+$margin-narrow-sm: 10px;
+$margin-narrow-md: 10px;
+$margin-narrow-lg: 15px;
+$margin-narrow-xl: 15px;
+
+$margin-wide-xs: 30px;
+$margin-wide-sm: 50px;
+$margin-wide-md: 50px;
+$margin-wide-lg: 80px;
+$margin-wide-xl: 80px;
+
+// # カラム
+//
+$card-cols: 3;
+$card-cols-sm: 3;
+$card-cols-xs: 1;
+$card-cols-side-margin: 30px;
+$card-cols-side-sm-margin: 15px;
+$card-cols-side-xs-margin: 0; // stylelint-disable-line length-zero-no-unit
+$card-cols-vertical-margin: 40px;
+$card-cols-vertical-sm-margin: 20px;
+$card-cols-vertical-xs-margin: 30px;
+
+// # メインカラムセンタリング
+@mixin flexible-width-body {
+	@media (--sm-gt) {
+		width: 100%;
+		min-width: 1260px; // コンテンツ幅
+		padding-left: 30px;
+		padding-right: 30px;
+	}
+
+	// @media (max-width: resolve($page-base-width + $page-viewport-side-margin * 2)) {
+	// 	max-width: resolve($page-base-width + $page-viewport-side-margin * 2);
+	// 	padding-left: $page-viewport-side-margin;
+	// 	padding-right: $page-viewport-side-margin;
+	// 	width: 100%;
+	// }
+}
+
+@mixin flexible-width-main-conntents {
+	width: 1260px; // コンテンツ幅
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: $page-viewport-side-margin;
+	padding-right: $page-viewport-side-margin;
+
+	@media (--lg-lte) {
+		min-width: 1260px; // コンテンツ幅
+		// width: 100%;
+	}
+
+	@media (--sm-lte) {
+		width: 100%;
+		min-width: unset;
+		padding-left: $page-viewport-side-margin-xs;
+		padding-right: $page-viewport-side-margin-xs;
+	}
+}
+
+// 下記調整中 resolve部分がうまくいかない為
+// @mixin flexible-width-body {
+// 	width: $page-viewport-width;
+
+// 	@media (max-width: resolve($page-viewport-width + $page-viewport-side-margin * 2)) {
+// 		max-width: resolve($page-viewport-width + $page-viewport-side-margin * 2);
+// 		padding-left: $page-viewport-side-margin;
+// 		padding-right: $page-viewport-side-margin;
+// 		width: 100%;
+// 	}
+
+// 	@media (--xs) {
+// 		padding-left: $page-viewport-side-margin-xs;
+// 		padding-right: $page-viewport-side-margin-xs;
+// 	}
+// }
+
+// @mixin flexible-width-main-conntents {
+// 	width: $page-base-width;
+
+// 	@media (max-width: resolve($page-base-width + $page-viewport-side-margin * 2)) {
+// 		max-width: resolve($page-base-width + $page-viewport-side-margin * 2);
+// 		padding-left: $page-viewport-side-margin;
+// 		padding-right: $page-viewport-side-margin;
+// 		width: 100%;
+// 	}
+// }
+
+// stylelint-enable unit-blacklist

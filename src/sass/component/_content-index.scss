@@ -1,0 +1,11 @@
+.c-content-index {
+	padding-bottom: 60px;
+
+	&__body {
+		@include flexible-width-body;
+		margin: 0 auto;
+		display: grid;
+		// grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+		// grid-gap: 10px;
+	}
+}

@@ -1,0 +1,45 @@
+.c-list-banner {
+	padding: 30px 0;
+
+	&__body {
+		@include flexible-width-body;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding-left: $page-viewport-side-margin;
+		padding-right: $page-viewport-side-margin;
+
+		> ul {
+			padding: 0;
+			text-align: center;
+			display: flex;
+			flex-wrap: wrap;
+			justify-content: center;
+			align-items: center;
+
+			> li {
+				list-style: none;
+				margin: 0 10px;
+
+				@media (--sm-lte) {
+					width: 100%;
+					margin-bottom: 10px;
+				}
+
+				> a {
+					text-decoration: none;
+					display: block;
+
+					&:hover {
+						opacity: 0.7;
+					}
+
+					> img {
+						@media (--xs-lte) {
+							width: 100%;
+						}
+					}
+				}
+			}
+		}
+	}
+}
