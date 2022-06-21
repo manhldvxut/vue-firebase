@@ -40,38 +40,38 @@
                 <p>絵馬デザイン選択</p>
                 <ul class="row">
                     <li class="col-md-2">
-                        <button value="theme01" @click="clickGetText">
+                        <button value="theme01">
                             テーマ０１
                             <p><img src="/img/sampl.jpg" alt=""></p>
                         </button>
                     </li>
                     <li class="col-md-2">
-                        <button value="theme02" @click="clickGetText">
+                        <button value="theme02">
                             テーマ０２
                             <p><img src="/img/samp02.jpeg" alt=""></p>
                         </button>
                         
                     </li>
                     <li class="col-md-2">
-                        <button value="theme03" @click="clickGetText">
+                        <button value="theme03">
                             テーマ０３
                             <p><img src="/img/samp03.jpeg" alt=""></p>
                         </button>
                     </li>
                     <li class="col-md-2">
-                        <button value="theme04" @click="clickGetText">
+                        <button value="theme04">
                             テーマ０４
                             <p><img src="/img/sampl.jpg" alt=""></p>
                         </button>
                     </li>
                     <li class="col-md-2">
-                        <button value="theme05" @click="clickGetText">
+                        <button value="theme05">
                             テーマ０５
                             <p><img src="/img/samp03.jpeg" alt=""></p>
                         </button>
                     </li>
                     <li class="col-md-2">
-                        <button value="theme06" @click="clickGetText">
+                        <button value="theme06">
                             テーマ０6
                             <p><img src="/img/samp02.jpeg" alt=""></p>
                         </button>
@@ -81,12 +81,13 @@
                   <div class="contentBig">
                     <div class="img-show">
                         <img src="/img/sampl.jpg" alt="">
+                        <input type="file" @change="fileUpload" />
                         <div class="form-group">
                             <label for="areaText">入力</label>
                             <input type="text" class="form-control" id="areaText" v-model="areaText">
                          </div>
                     </div>
-                    <p class="URLinput" id="url" v-bind="url">fafaf</p>
+                    
                   </div>
                  <div class="row">
                     <div class="col-md-3">
@@ -129,6 +130,7 @@
     <script src="/js/vue.lgobal.js"></script>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     <script src="https://www.gstatic.com/firebasejs/3.7.0/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.16.0/firebase.js"></script>
     <script src="https://unpkg.com/vuefire/dist/vuefire.js"></script>
     <script src="/js/data.js" defer="defer"></script>
 </body>

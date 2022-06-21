@@ -10,9 +10,9 @@ var config = {
     messagingSenderId: "445231659052",
     appId: "1:445231659052:web:887a40fc67c8602d773989"
   };
-var app = firebase.initializeApp(config);
-var db = app.database()
-var ref = db.ref('playlists');
+  var app = firebase.initializeApp(config);
+  var db = app.database();
+  var ref = db.ref('playlists');
 
 window.addEventListener('load', function () {
   var app = Vue.createApp({
@@ -20,29 +20,34 @@ window.addEventListener('load', function () {
       return {
         areaText: "",
         url: "",
-        TextValue: "",
       }
     },
       firebase: {
         playlists: ref
       }, 
       methods: {
-        clickGetText: function(event) {
-          this.TextValue = event.target.src;
-        },
         addPlaylist: function () {
+
           if (this.areaText.trim()) {
             ref.push({
               "areaText": this.areaText,
               "url": this.url,
-              "TextValue": this.TextValue,
             })
-            
-            this.TextValue = TextValue
+            alert('Ok')
             this.areaText = ""
             this.url = ""
             
           }
+        },
+        fileUpload(props) {
+          const file = props.target.files[0];
+          this.img_url = URL.createObjectURL(file);
+          const storageRef = firebase.storage().ref();
+
+          const thisRef = storageRef.child("files/" + file.name);
+          thisRef.put(file).then(function (snapshot) {
+            console.log('Uploaded');
+        });
         }
       },
       watch: {
@@ -57,26 +62,25 @@ window.addEventListener('load', function () {
 
 
 
-// (function() {
-// 	'use strict';
-// 	/**
-// 	 * DOM読み込み後実行
-// 	 */
-// 	$(function() {
-//     setTimeout(() => {
-//     const productCategory = $('.c-shop__products-category');
-//     $('.jumbotron ul > li button').on('click', function() {
-//       let imgSrc = $(this).find('img').attr('src');
-//       console.log(imgSrc)
+(function() {
+	'use strict';
+	/**
+	 * DOM読み込み後実行
+	 */
+	$(function() {
+    setTimeout(() => {
+    const productCategory = $('.c-shop__products-category');
+    $('.jumbotron ul > li button').on('click', function() {
+      let imgSrc = $(this).find('img').attr('src');
 
-//       $('.contentBig .img-show img').each(function() {
-//         $(this).attr('src', imgSrc)
-//       })
-//       $('.URLinput').text(imgSrc)
-//     })
-//   }, 3000);
+      $('.contentBig .img-show img').each(function() {
+        $(this).attr('src', imgSrc)
+      })
+      $('.URLinput').text(imgSrc)
+    })
+  }, 3000);
     
-// 	});
-// })();
+	});
+})();
 
 
