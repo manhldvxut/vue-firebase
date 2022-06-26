@@ -43,19 +43,22 @@ export default function() {
 		});
 		return tags.length == 0 ? null : tags;
 	}
+
 	function renderShowHideOption(){
-		let category = null;
-		let tagSelect = getAllTagSelect($('input[name="tags"]:checked'));
+		var category = $('input[name="category"]:checked').val();
+		var tagSelect = getAllTagSelect($('input[name="tags"]:checked'));
+
 		$(workItem).each(function(){
 			try{
-				let categoryItem = $(this).data('category');
-				let matchCategory = category == 'ALL' || $(this).attr('category') == category;
-				if(matchCategory && tagSelect == 'ALL' && categoryItem.indexOf(indexOfvalue) > -1){
+				let matchCategory = tagSelect == 'ALL' || $(this).data('category') == category;
+				let tag =  $(this).attr('data-tags').match(/[ぁ-んァ-ン一-龥]{1,}/g) || [];
+
+				if(matchCategory && tagSelect == 'ALL' &&  $(this).data('category').indexOf(category) > -1 ){
 					$(this).attr('data-display', 'block');
 					return true;
 				}
-				var tag =  $(this).attr('data-tags').match(/[ぁ-んァ-ン一-龥1-4¥・¥ー¥　¥.]{1,}/g) || [];
-				if(matchArray(tag, tagSelect) && matchCategory && categoryItem.indexOf(indexOfvalue) > -1){
+
+				if(matchArray(tag, tagSelect) && matchCategory){
 					$(this).attr('data-display', 'block');
 				}else {
 					$(this).attr('data-display', 'none');
@@ -77,9 +80,6 @@ export default function() {
 
 
 	$(movieTag).on('click', function () {
-		$(listItem).removeClass('active');
-		$(listItem).removeClass('removeActive');
-
 		$(movieTag).attr('data-current', '');
 		if ($(this).attr('data-current', '')) {
 			$(this).attr('data-current', 'true');
@@ -216,10 +216,19 @@ export default function() {
 			$(movieCategory).removeAttr('data-current');
 			$(movieTag).removeAttr('data-current');
 			moviePramTag.attr('data-current','true');
+
+			if(moviePramTag.attr('data-current') == 'true') {
+				$(moviePramTag).children().children().prop('checked', true);
+			}
+
 			moviePram.attr('data-current','true');
+			if(moviePram.attr('data-current') == 'true') {
+				$(moviePram).children().children().prop('checked', true);
+			}
 			$('.c-content-index__tab li[data-current="true"] input').trigger('change');
 		}
 	}
+
 
 	// パーマリンクに選択したカテゴリーとタグを設定
 	function permalink() {
@@ -279,6 +288,3 @@ export default function() {
 		console.log(event)
 	}
 };
-
-
-
