@@ -21,6 +21,8 @@ export default function() {
 
 	var workItem = $('.c-media-list__item');
 	var indexOfvalue = '中学校'; // ロードの時にvalueを変更↓↓↓
+
+
 	if(urlLinkLoad.indexOf('high-school') > -1) {
 		indexOfvalue = '高等学校';
 	}
@@ -47,6 +49,7 @@ export default function() {
 	function renderShowHideOption(){
 		var category = $('input[name="category"]:checked').val();
 		var tagSelect = getAllTagSelect($('input[name="tags"]:checked'));
+		var count = 0; // count item
 
 		$(workItem).each(function(){
 			try{
@@ -55,11 +58,13 @@ export default function() {
 
 				if(matchCategory && tagSelect == 'ALL' &&  $(this).data('category').indexOf(category) > -1 ){
 					$(this).attr('data-display', 'block');
+					count ++;
 					return true;
 				}
 
 				if(matchArray(tag, tagSelect) && matchCategory){
 					$(this).attr('data-display', 'block');
+					count ++;
 				}else {
 					$(this).attr('data-display', 'none');
 				}
@@ -67,6 +72,12 @@ export default function() {
 				console.log(e);
 			}
 		})
+
+		if(count === 0) {
+			$('.c-media-list').after('<p class="c-media-list__none">該当の実績がありません。</p>');
+		} else {
+			$('.c-media-list__none').remove();
+		}
 	}
 	$('.c-content-index__tags input[name="tags"], input[name="category"]').on('change', renderShowHideOption);
 
@@ -250,12 +261,13 @@ export default function() {
 	try {
 		$('.c-media-list__item').each(function() {
 			var itemListCatelogy = $(this).data('category');
-			var itemListTag = $(this).data('tags')
+			var itemListTag = $(this).data('tags');
+
 			for(var i = 0; i < urlLinkLoad.length; i++){
 				switch(urlLinkLoad[i]) {
 					case "middle-school":
 						if(urlLinkLoad.indexOf('all') > -1 && itemListCatelogy === '中学校') {
-							$(this).addClass('active')
+							$(this).addClass('active');
 						}else if(urlLinkLoad.indexOf('event') > -1 && itemListCatelogy === '中学校' && itemListTag.indexOf('行事') > -1) {
 							$(this).addClass('active');
 						}else if(urlLinkLoad.indexOf('school-life') > -1 && itemListCatelogy === '中学校' && itemListTag.indexOf('学校生活') > -1) {
@@ -263,12 +275,12 @@ export default function() {
 						}else if(urlLinkLoad.indexOf('other') > -1 && itemListCatelogy === '中学校' && itemListTag.indexOf('その他') > -1) {
 							$(this).addClass('active');
 						}else {
-							$(this).addClass('removeActive')
+							$(this).addClass('removeActive');
 						}
 					break;
 					case "high-school":
 						if(urlLinkLoad.indexOf('all') > -1 && itemListCatelogy === '高等学校') {
-							$(this).addClass('active')
+							$(this).addClass('active');
 						}else if(urlLinkLoad.indexOf('event') > -1 && itemListCatelogy === '高等学校' && itemListTag.indexOf('行事') > -1) {
 							$(this).addClass('active');
 						}else if(urlLinkLoad.indexOf('school-life') > -1 && itemListCatelogy === '高等学校' && itemListTag.indexOf('学校生活') > -1) {
@@ -276,7 +288,8 @@ export default function() {
 						}else if(urlLinkLoad.indexOf('other') > -1 && itemListCatelogy === '高等学校' && itemListTag.indexOf('その他') > -1) {
 							$(this).addClass('active');
 						}else {
-							$(this).addClass('removeActive')
+							$(this).addClass('removeActive');
+
 						}
 					break;
 
@@ -287,4 +300,12 @@ export default function() {
 	} catch(event) {
 		console.log(event)
 	}
+
+	// item none
+	$('.c-media-list').each(function() {
+		let noneItem = $(this).find('.active');
+		if(noneItem.length == 0) {
+			$('.c-media-list').after('<p class="c-media-list__none">該当の実績がありません。</p>');
+		}
+	})
 };
